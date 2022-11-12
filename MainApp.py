@@ -40,14 +40,14 @@ def check_for_match_start(latest_log):
     print("Waiting for CS:GO to be launched")
     characters = 0
     while characters < 50:
-        characters = len(open(latest_log).read())
+        characters = len(open(latest_log, encoding="utf-8").read())
 
     print("CS:GO has been launched")
     print("Waiting for Match to begin")
 
     ammo_presence = ""
     while "ammo" not in ammo_presence:
-        ammo_presence = open(latest_log).read()[-200:-1]
+        ammo_presence = open(latest_log, encoding="utf-8").read()[-200:-1]
     print("Match has Begun!")    
 
 """optional code -
