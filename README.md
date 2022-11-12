@@ -39,3 +39,4 @@ Ideas:
 -> Update Predictors instead of recollecting every time (CSGO GSI may have the functionality, check how they did it)
 -> Bypass creation of dictionary (CSGO GSI may already do this for us)
 -> Java GSI - there seem to be many java programs to interact with CSGO GSI. THey may be more efficient in this usecase.
+-> HTTP Security (make more robust for deployment)
