@@ -10,6 +10,8 @@ Current Bugs/Tasks
 
 -> Add args to disable certain features (pause/play, gui...)
 
+-> Commit to CSGO-GSI (at end)
+
 Corrected Bugs:
 
 ->  KeyError in server with <10 players (added a check to see if server is populated to prevent KeyError, and added exception to restart loop if KeyError still occurs)
