@@ -71,8 +71,7 @@ def parse_and_predict():
         
     while True:
         
-        try:
-            
+        try:            
             """Reading Data Log
             """
             
@@ -85,25 +84,8 @@ def parse_and_predict():
                         break
             snapshot.reverse()
             del snapshot[0]
-            while True:
-                try:
-                    snapshot = str(snapshot[0])
-                    break
-                except IndexError:
-                    print("index error")
-                    time.sleep(5)
-                    with FileReadBackwards(latest_log) as file:
-                        snapshot = list()
-                        for line in file:
-                            if not line.startswith('snapshot'):
-                                snapshot.append(line)
-                            else:
-                                break
-                    snapshot.reverse()
-                    del snapshot[0]
-                    snapshot = str(snapshot[0])
-            
-                
+            snapshot = str(snapshot[0])
+                    
             
             """formatting snapshot string 
             """
@@ -177,6 +159,11 @@ def parse_and_predict():
             this fix results in no major loss of functionality (predictions resume after 1-2 seconds). 
             """ 
         except JSONDecodeError as jsonde:
+            print("JSONDecodeError")
+            continue
+        except IndexError:
+            print("index error. restarting")
+            time.sleep(0.5)
             continue
 
     sys.exit()
