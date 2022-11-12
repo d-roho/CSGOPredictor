@@ -50,6 +50,23 @@ def check_for_match_start(latest_log):
         ammo_presence = open(latest_log, encoding="utf-8").read()[-200:-1]
     print("Match has Begun!")    
 
+def read_last_snapshot(latest_log):
+    #reads latest_log backwards to extract latest snapshot
+    from file_read_backwards import FileReadBackwards
+
+    with FileReadBackwards(latest_log) as file:
+        snapshot = list()
+        for line in file:
+            if not line.startswith('snapshot'):
+                snapshot.append(line)
+            else:
+                break
+    snapshot.reverse()
+    del snapshot[0]
+    snapshot = str(snapshot[0])
+    return snapshot
+
+
 """optional code -
 print("Predictions will begin in 15 seconds")
 time.sleep(15)
@@ -57,13 +74,12 @@ print("starting predictions")"""
 
 def parse_and_predict():
     #The main loop that parses logs and runs the predictive model. Returns probability prediction of round outcome
-    dir_path = change_dir()
-    model = import_model()
+    dir_path   = change_dir()
+    model      = import_model()
     latest_log = detect_latest_log(dir_path)
     check_for_match_start(latest_log)
 
     import time
-    from file_read_backwards import FileReadBackwards
     from snapshot_formatter import string_formatter
     from snapshot_parser import snapshot_dictifyer, snapshot_arrayfier
     from json.decoder import JSONDecodeError
@@ -71,21 +87,9 @@ def parse_and_predict():
         
     while True:
         
-        try:            
-            """Reading Data Log
-            """
-            
-            with FileReadBackwards(latest_log) as file:
-                snapshot = list()
-                for line in file:
-                    if not line.startswith('snapshot'):
-                        snapshot.append(line)
-                    else:
-                        break
-            snapshot.reverse()
-            del snapshot[0]
-            snapshot = str(snapshot[0])
-                    
+        try: 
+            #Reading latest snapshot
+            snapshot   = read_last_snapshot(latest_log)                
             
             """formatting snapshot string 
             """
