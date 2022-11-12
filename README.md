@@ -5,6 +5,7 @@ Current Bugs/Tasks
 3. Lighter Program - reducing the amount of space taken by GSI Log
 4. Better GSI integration
 5. Better Pause and Play functionality (use keystroke detector, not KeyboardInterrupt)
+6. Add args to disable certain features (pause/play, gui...)
 
 Corrected Bugs:
 
