@@ -2,7 +2,6 @@
 
 Current Bugs/Tasks
 
-1. Json.Loads Error (patch by restarting loop, but not solved)
 2. UnicodeDecodeError for certain usernames still arises (check for solution)
 3. Lighter Program - reducing the amount of space taken by GSI Log
 4. Better GSI integration
@@ -13,6 +12,7 @@ Corrected Bugs:
 1.  KeyError in server with <10 players (added a check to see if server is populated to prevent KeyError, and added exception to restart loop if KeyError still occurs)
 2.  GSI - Unicode decoding error (fixed by harcoding utf-8 as decoding standard)
 3. Virtual Win Scenarios - situations in a round where the winner is acutally or virtually decided, which the model doesn't recognise (hardcoded theses into main script's code)
+4. Json.Loads/index Error (patched by restarting loop on IndexError occurance, but occurance of IndexError is not solved)
 
 Known Bugs/Problems that haven't been solved:
 
