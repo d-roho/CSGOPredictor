@@ -27,11 +27,11 @@ def import_model():
 
 def check_for_match_start():
     import time
+    from gsi_pinger import pingerfunc
     #Pauses script till useful data is being recorded to generate predictions
     test = {}
+    print("Waiting for CS:GO to be launched")
     while len(test.keys()) == 0:
-        print("Waiting for CS:GO to be launched")
-        from gsi_pinger import pingerfunc
         test = pingerfunc()
     print("CS:GO has been launched")
     print("Waiting for Match to begin")
@@ -43,6 +43,37 @@ def check_for_match_start():
 
     print("Match has Begun!")
 
+def match_start_check_postlaunch():
+    #Same as check_for_match_start(), but used in cases where CS:GO is known to have already been launched
+    from gsi_pinger import pingerfunc
+    import time
+
+    test = {}
+    while True:
+        try:
+            test = pingerfunc()
+            if len(test.get("allplayers").keys()) == 0: 
+                time.sleep(1)
+                test = pingerfunc()
+            else:
+                return False
+        except AttributeError:
+            time.sleep(1)
+            continue
+
+    while True:
+        try:
+            test = pingerfunc()
+            if test.get("map").get("phase") == 'warmup':
+                time.sleep(1)
+                test = pingerfunc()
+            else:
+                return False
+        except AttributeError:
+            time.sleep(1)
+            continue
+
+
 def parse_and_predict():
     #The main loop that parses logs and runs the predictive model. Returns probability prediction of round outcome
     dir_path   = change_dir()
@@ -51,7 +82,8 @@ def parse_and_predict():
 
     import time
     import sys
-    from snapshot_parser import snapshot_formatter, snapshot_arrayfier
+    from snapshot_parser import exception_handler, snapshot_formatter, snapshot_arrayfier
+    import exceptions
 
         
     while True:
@@ -59,10 +91,12 @@ def parse_and_predict():
         try:
             #Pinging for latest snapshot
 
-            from gsi_pinger import pingerfunc
             snapshot = None
+            from gsi_pinger import pingerfunc
             while snapshot is None:
                 snapshot = pingerfunc()
+
+            snapshot = exception_handler(snapshot)
 
             """formatting snapshot dictionary 
             """
@@ -89,9 +123,9 @@ def parse_and_predict():
             #Round Over
 
             if snapshot_formatted["round"]["phase"] == "over":
-                if snapshot_formatted["round"]["win_team"] == "T":
+                if snapshot_formatted["round"].get("win_team") == "T":
                     pred = [[0,1]]
-                elif snapshot_formatted["round"]["win_team"] == "CT":
+                if snapshot_formatted["round"].get("win_team") == "CT":
                     pred = [[1,0]]
 
             #Virtual Round Win - Scenarios in which a team cannot lose, but the round is still live
@@ -134,13 +168,36 @@ def parse_and_predict():
             the loop is skipped, the error does not recur. Does not fix the underlying problem (which I have not yet figured out), but 
             this fix results in no major loss of functionality (predictions resume after 1-2 seconds). 
             """ 
-        except KeyError:
-            print("KeyError")
-            time.sleep(5)
+        except exceptions.EmptyServer:
+            #Manually Raised when no players are found in the server. Forces program to wait till at least one player is detected 
+            print("Server is empty. Program will automatically resume once at least one player joins the server.")
+            time.sleep(1)
+            print("Waiting...")
+            match_start_check_postlaunch()
+            print("Player(s) Detected!")
+            time.sleep(1)
             continue
-        except IndexError:
-            print("index error. restarting")
-            time.sleep(0.5)
+        except exceptions.MatchNotStarted:
+            #
+            print("You are not currently spectating a Match. Program will automatically resume when you begin spectating.")
+            time.sleep(1)
+            print("Waiting...")
+            match_start_check_postlaunch()
+            print("Match has Begun!")
+            time.sleep(1)
+            continue
+        except exceptions.WarmUp:
+            print("Match is in Warm Up Phase. Predictions will begin after Warm Up.")
+            time.sleep(1)
+            print("Waiting...")
+            check_for_match_start() #For unkown reason, match_start_check_postlaunch() doesnt work here
+            time.sleep(1)
+            continue
+        except KeyError:
+            #Should not occur. Please report on GitHub if found.
+            print("KeyError. Restarting loop.")
+            print("This should not occur. Please raise a Ticket on GitHub!")
+            time.sleep(5)
             continue
 
     sys.exit()
