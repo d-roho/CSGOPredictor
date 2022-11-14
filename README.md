@@ -2,9 +2,7 @@
 
 Current Bugs/Tasks
 
--> Exceptions Handling - 
-
--> Better Pause and Play functionality (use keystroke detector, not KeyboardInterrupt)
+-> Better Pause and Play functionality - automatic pause-play (during times when a live match is not being spectated) handled using exceptions (use keystroke detector, not KeyboardInterrupt)
 
 -> Basic GUI
 
@@ -38,7 +36,11 @@ Corrected Bugs/Problems:
 
 -> (Fix | High Priority) Imperfect Server Population Detector - Fixed by making program server population agnostic. Ppredictions are made as long as population > 0 - if population = 0, program will wait till at least 1 player joins. 
 
+-> Exceptions Handling - solved using custom exceptions imported from exceptions.py
+
 Known Bugs/Problems that haven't been solved:
+
+-> (Fix | High Priority) Timeout - Only occurred once. When waiting for usable data to begin flowing, if we wait too long (or ping too many times) we get a timeout error. Exact cause unknown. 
 
 -> (Fix in another Project | Low Priority) 175 vs 115 seconds- The Predictive Model was trained on a dataset where the time_left ranged (0-175). Actually, range should be (0,115). Former's range may include freezetime etc. This may lead to the model being less than ideal due to it's faulty usage of time_left in making predictions. Not code-breaking, but good to fix.
 
