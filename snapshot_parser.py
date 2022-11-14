@@ -9,7 +9,7 @@ def snapshot_formatter(ssoriginal):
     ss1 = ssoriginal
     playernames = list(ss1["allplayers"].keys())
     ss1_ap = ss1["allplayers"]
-    for i in range(10):
+    for i in range(len(playernames)):
         ss1_ap[str("player" + str(i+1))] = ss1_ap.pop(str(playernames[i]))
     return ss1
 
@@ -63,7 +63,7 @@ def snapshot_arrayfier(snapshot_formatted):
     counter_ct = 0
     health_t = 0
     health_ct = 0
-    for i in range(10):
+    for i in range(len(snap["allplayers"].keys())):
         if snap["allplayers"][str("player" + str(i + 1))]["state"]["health"] > 0:
             if snap["allplayers"][str("player" + str(i + 1))]["team"] == "T":
                 counter_t += 1
@@ -82,7 +82,7 @@ def snapshot_arrayfier(snapshot_formatted):
     armor_t = 0
     armor_ct = 0
 
-    for i in range(10):
+    for i in range(len(snap["allplayers"].keys())):
         if snap["allplayers"][str("player" + str(i + 1))]["state"]["armor"] > 0:
             if snap["allplayers"][str("player" + str(i + 1))]["team"] == "T":
                 armor_t += snap["allplayers"][str("player" + str(i + 1))]["state"]["armor"]
@@ -116,7 +116,7 @@ def snapshot_arrayfier(snapshot_formatted):
                 "weapon_molotov", "weapon_incgrenade", ]
     ignore = ["weapon_knife", "weapon_knife_t", "weapon_c4"]
 
-    for i in range(10):
+    for i in range(len(snap["allplayers"].keys())):
         player = str("player" + str(i + 1))    
         if snap["allplayers"][player]["team"] == "T":
             for iterator in range(len(list(snap["allplayers"][player]["weapons"].keys()))):
@@ -159,7 +159,7 @@ def snapshot_arrayfier(snapshot_formatted):
     helmets_t = 0
     helmets_ct = 0
 
-    for i in range(10):
+    for i in range(len(snap["allplayers"].keys())):
         player = str("player" + str(i + 1))
         if snap["allplayers"][player]["state"]["helmet"] is True:
             if snap["allplayers"][player]["team"] == "T":
