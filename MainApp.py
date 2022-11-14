@@ -84,13 +84,17 @@ def parse_and_predict():
     import sys
     from snapshot_parser import exception_handler, snapshot_formatter, snapshot_arrayfier
     import exceptions
-
-        
-    while True:
-        
+    from listener import pause_detector, pause_screen
+    pause_counter = 0
+    
+    while True:   
         try:
-            #Pinging for latest snapshot
+            #Checking is a Pause request was initiated in previous loop 
+            from listener import raise_pause_screen
+            if raise_pause_screen == True:
+                pause_screen()
 
+            #Pinging for latest snapshot
             snapshot = None
             from gsi_pinger import pingerfunc
             while snapshot is None:
@@ -151,16 +155,11 @@ def parse_and_predict():
             print(pred)
             with open('predictions.txt', 'a') as fh:
                 fh.write(str(pred)+'\n')
+
+            if pause_counter % 10 == 0: 
+                pause_detector()
+            pause_counter += 1
                 
-        except KeyboardInterrupt:
-            print("Predictions Paused - Hit Enter to resume or type quit exit program: ")      
-            try:
-                response = input()
-                if response == 'quit':
-                    break
-            except KeyboardInterrupt:
-                print('Resuming...')
-                continue
             """
             Following restarts from top of While. Used to handle cases when the log entry 
             is not properly extracted from the log and extraction needs to redone. The log entry extracted from
@@ -199,6 +198,10 @@ def parse_and_predict():
             print("This should not occur. Please raise a Ticket on GitHub!")
             time.sleep(5)
             continue
+        except KeyboardInterrupt:
+            print("Exiting Program")
+            time.sleep(0.5)
+            sys.exit()
 
     sys.exit()
  
