@@ -24,83 +24,59 @@ def import_model():
     print("model imported successfully")
     return model
 
-def detect_latest_log(dir_path):
-    #Detects and selects the latest log created by CSGO-GSI
-    import glob
-    import os
 
-    list_of_files = glob.glob(str( str(dir_path) + '/CSGO-GSI/logs/*'))
-    latest_log = max(list_of_files, key=os.path.getctime)
-    print("The latest CSGO GSI Log is - " + str(latest_log))
-    return latest_log
-
-
-def check_for_match_start(latest_log):
+def check_for_match_start():
+    import time
     #Pauses script till useful data is being recorded to generate predictions
-    print("Waiting for CS:GO to be launched")
-    characters = 0
-    while characters < 50:
-        characters = len(open(latest_log, encoding="utf-8").read())
-
+    test = {}
+    while len(test.keys()) == 0:
+        print("Waiting for CS:GO to be launched")
+        from gsi_pinger import pingerfunc
+        test = pingerfunc()
     print("CS:GO has been launched")
     print("Waiting for Match to begin")
+    
+    while test.get("allplayers") is None:
+        test = pingerfunc()
+    print("Match has Begun!")
+    print("Waiting for server to be fully populated")
 
-    ammo_presence = ""
-    while "ammo" not in ammo_presence:
-        ammo_presence = open(latest_log, encoding="utf-8").read()[-200:-1]
-    print("Match has Begun!")    
+    while len(test.get("allplayers").keys()) != 10:
+        test = pingerfunc()
+    print("Server is Populated! Beginning Predictions")
+    time.sleep(2)
 
-def read_last_snapshot(latest_log):
-    #reads latest_log backwards to extract latest snapshot
-    from file_read_backwards import FileReadBackwards
-
-    with FileReadBackwards(latest_log) as file:
-        snapshot = list()
-        for line in file:
-            if not line.startswith('snapshot'):
-                snapshot.append(line)
-            else:
-                break
-    snapshot.reverse()
-    del snapshot[0]
-    snapshot = str(snapshot[0])
-    return snapshot
-
-
-"""optional code -
-print("Predictions will begin in 15 seconds")
-time.sleep(15)
-print("starting predictions")"""
 
 def parse_and_predict():
     #The main loop that parses logs and runs the predictive model. Returns probability prediction of round outcome
     dir_path   = change_dir()
     model      = import_model()
-    latest_log = detect_latest_log(dir_path)
-    check_for_match_start(latest_log)
+    check_for_match_start()
 
     import time
-    from snapshot_formatter import string_formatter
-    from snapshot_parser import snapshot_dictifyer, snapshot_arrayfier
-    from json.decoder import JSONDecodeError
+    import sys
+    from snapshot_parser import snapshot_formatter, snapshot_arrayfier
 
         
     while True:
         
-        try: 
-            #Reading latest snapshot
-            snapshot   = read_last_snapshot(latest_log)                
-            
-            """formatting snapshot string 
+        try:
+            #Pinging for latest snapshot
+
+            from gsi_pinger import pingerfunc
+            snapshot = None
+            while snapshot is None:
+                snapshot = pingerfunc()
+
+            """formatting snapshot dictionary 
             """
-            
-            snapshotformatted = string_formatter(snapshot)
+
+            snapshot_formatted = snapshot_formatter(snapshot)
           
             
             """parsing formatted snapshot and creating list of attributes for predictive model 
             """
-            snapshotdictionary = snapshot_dictifyer(snapshotformatted)
-            predictors = snapshot_arrayfier(snapshotdictionary)
+            predictors = snapshot_arrayfier(snapshot_formatted)
           
             """Prediction
             """
@@ -116,17 +92,17 @@ def parse_and_predict():
 
             #Round Over
 
-            if snapshotdictionary["round"]["phase"] == "over":
-                if snapshotdictionary["round"]["win_team"] == "T":
+            if snapshot_formatted["round"]["phase"] == "over":
+                if snapshot_formatted["round"]["win_team"] == "T":
                     pred = [[0,1]]
-                elif snapshotdictionary["round"]["win_team"] == "CT":
+                elif snapshot_formatted["round"]["win_team"] == "CT":
                     pred = [[1,0]]
 
             #Virtual Round Win - Scenarios in which a team cannot lose, but the round is still live
 
             #Bomb Timer < 5 seconds
-            if snapshotdictionary["phase_countdowns"].get("phase") == "bomb":
-                if float(snapshotdictionary["phase_countdowns"].get("phase_ends_in")) < 5.0:
+            if snapshot_formatted["phase_countdowns"].get("phase") == "bomb":
+                if float(snapshot_formatted["phase_countdowns"].get("phase_ends_in")) < 5.0:
                     pred = [[0,1]]
             #Time to Defuse > Time left in Round - cant do this with existing info, solution may be possible (more info from GSI?)
             #Bomb Planted - All Ts dead - enough time to defuse - same as above
@@ -134,7 +110,7 @@ def parse_and_predict():
             """Freeze Time - Making Time prediction attribute default to 115 seconds during freezetime. 
             This makes it so that the low time_left during freezetime doesn't skew prediction towards Ts"""
 
-            if snapshotdictionary["phase_countdowns"].get("phase") == "freezetime":
+            if snapshot_formatted["phase_countdowns"].get("phase") == "freezetime":
                 predictors[4] = 115
                 pred = model.predict([predictors])
        
@@ -162,8 +138,9 @@ def parse_and_predict():
             the loop is skipped, the error does not recur. Does not fix the underlying problem (which I have not yet figured out), but 
             this fix results in no major loss of functionality (predictions resume after 1-2 seconds). 
             """ 
-        except JSONDecodeError as jsonde:
-            print("JSONDecodeError")
+        except KeyError:
+            print("KeyError")
+            time.sleep(5)
             continue
         except IndexError:
             print("index error. restarting")
