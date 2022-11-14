@@ -2,11 +2,9 @@
 
 Current Bugs/Tasks
 
--> Better Pause and Play functionality - automatic pause-play (during times when a live match is not being spectated) handled using exceptions (use keystroke detector, not KeyboardInterrupt)
+-> Basic GUI - tkinter and PySimpleGUI
 
--> Basic GUI
-
--> Add args to disable certain features (pause/play, gui...)
+-> Add args to disable certain features (guide, pause/play, gui...)
 
 -> Optimize gsi functionality (alternative to opening/closing server for each ping, increase in speed, elimination of lag spikes)
 
@@ -37,6 +35,8 @@ Corrected Bugs/Problems:
 -> (Fix | High Priority) Imperfect Server Population Detector - Fixed by making program server population agnostic. Ppredictions are made as long as population > 0 - if population = 0, program will wait till at least 1 player joins. 
 
 -> Exceptions Handling - solved using custom exceptions imported from exceptions.py
+
+-> Better Pause and Play functionality - automatic pause-play (during times when a live match is not being spectated) handled using exceptions; Manual pause-play by holding down Esc Key introduced by listener.py module (using Pynput package).
 
 Known Bugs/Problems that haven't been solved:
 
