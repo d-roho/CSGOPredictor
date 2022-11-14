@@ -2,7 +2,7 @@
 
 Current Bugs/Tasks
 
--> (Fix | High Priority) Imperfect Server Population Detector - the code in place to detect if all 10 players are in server does not work in many scenarios. Not code-breaking, but good to fix. UPDATE - Code now has potential to detect, fix can be implemented
+-> Exceptions Handling - 
 
 -> Better Pause and Play functionality (use keystroke detector, not KeyboardInterrupt)
 
@@ -16,7 +16,7 @@ Current Bugs/Tasks
 
 -> Commit to CSGO-GSI (at end)
 
-Corrected Bugs:
+Corrected Bugs/Problems:
 
 ->  KeyError in server with <10 players (added a check to see if server is populated to prevent KeyError, and added exception to restart loop if KeyError still occurs)
 
@@ -30,7 +30,13 @@ Corrected Bugs:
 
 -> Better GSI integration - Created gsi_pinger
 
+-> Bypass manual creation of dictionary with GSI data - solved by gsi_pinger
+
 -> Lighter Program (reducing the amount of space taken by GSI Log) - No more logs with gsi_pinger
+
+-> Make program Server Population agnostic - Done
+
+-> (Fix | High Priority) Imperfect Server Population Detector - Fixed by making program server population agnostic. Ppredictions are made as long as population > 0 - if population = 0, program will wait till at least 1 player joins. 
 
 Known Bugs/Problems that haven't been solved:
 
@@ -38,15 +44,11 @@ Known Bugs/Problems that haven't been solved:
 
 -> (Fix | Low Priority) Miscellaneous minor bugs - A:- All Ts dead and bomb will be defused in time. Prediction should default to win for CT. Probable fix - adding 'bomb' to GSI config to get necessary data for this fix or something similar. 
 
-
 Ideas:
 
 -> Update Predictors instead of recollecting every time (CSGO GSI may have the functionality, check how they did it)
-
--> Bypass creation of dictionary (CSGO GSI may already do this for us)
 
 -> Java GSI - there seem to be many java programs to interact with CSGO GSI. THey may be more efficient in this usecase.
 
 -> HTTP Security (make more robust for deployment)
 
--> Make program Team Size agnostic (currently requires 10 players in server to function). Would improve compatibility, just need to replace hardcoding.
