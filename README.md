@@ -40,3 +40,4 @@ Ideas:
 -> Bypass creation of dictionary (CSGO GSI may already do this for us)
 -> Java GSI - there seem to be many java programs to interact with CSGO GSI. THey may be more efficient in this usecase.
 -> HTTP Security (make more robust for deployment)
+-> Make program Team Size agnostic (currently requires 10 players in server to function). Would improve compatibility, just need to replace hardcoding.
