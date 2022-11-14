@@ -38,14 +38,10 @@ def check_for_match_start():
     
     while test.get("allplayers") is None:
         test = pingerfunc()
-    print("Match has Begun!")
-    print("Waiting for server to be fully populated")
-
-    while len(test.get("allplayers").keys()) != 10:
+    while test.get("map").get("phase") == 'warmup':
         test = pingerfunc()
-    print("Server is Populated! Beginning Predictions")
-    time.sleep(2)
 
+    print("Match has Begun!")
 
 def parse_and_predict():
     #The main loop that parses logs and runs the predictive model. Returns probability prediction of round outcome
