@@ -2,31 +2,21 @@ import json
 import time
 """Creates a Dicitonary of required datapoints from the formatted snapshot
 """
-def snapshot_dictifyer(snapshotformatted):
-    snapshotdictionary = {"map": "", "round": "", "allplayers": "", "phase_countdowns": "", "auth": ""}       
-    key_list = ["map", "round", "allplayers", "phase_countdowns", "auth"]
 
-    iterator = 0
-    while iterator < 5:
-        dictionary = json.loads(str(snapshotformatted[iterator]))
-        # allplayers - standardising key names
-        if iterator == 2:
-            while False:
-                if len(list(dictionary.keys())) == 10: return True
-                print('''Server has not been fully populated yet. Waiting 10 seconds and trying again.
-If you keep getting this error, restart the program after the server has been populated with all 10 players.''')
-                time.sleep(10)
-                return False
-            d3keys = list(dictionary.keys())
-            for j in range(len(d3keys)):
-                dictionary[str("player" + str(j + 1))] = dictionary.pop(str(d3keys[j]))
-        snapshotdictionary[str(key_list[iterator])] = dictionary    
-        iterator += 1    
-    return snapshotdictionary
+def snapshot_formatter(ssoriginal):
+    #Converts Player names to Generic names to enable dictionary access using said generic names
+
+    ss1 = ssoriginal
+    playernames = list(ss1["allplayers"].keys())
+    ss1_ap = ss1["allplayers"]
+    for i in range(10):
+        ss1_ap[str("player" + str(i+1))] = ss1_ap.pop(str(playernames[i]))
+    return ss1
+
 
 """Compiles the list of attributes needed by the predictive model from the above Dictionary  
 """
-def snapshot_arrayfier(snapshotdictionary):
+def snapshot_arrayfier(snapshot_formatted):
     """Creating list of attributes for prediction
 
     ## Order of attributes - 
@@ -41,13 +31,18 @@ def snapshot_arrayfier(snapshotdictionary):
     ## bomb_planted = {False: 0, True: 1}
     """
 
-    snap = snapshotdictionary
+    snap = snapshot_formatted
     predictors = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     """adding var0 - map"""
     map_codes = {'de_cache': 0, 'de_dust2': 1, 'de_inferno': 2, 'de_mirage': 3, 'de_nuke': 4, 'de_overpass': 5,
                  'de_train': 6, 'de_vertigo': 7, 'de_ancient': 4}
-    predictors[0] = map_codes[str(snap["map"]["name"])]
+    map_string = str(snap["map"]["name"])
+    if map_codes.get(map_string) is None:
+        predictors[0] = 1 #Default Map set to de_dust2 (due to its balance T-CT balance)
+    else:
+        predictors[0] = map_codes.get(map_string)
+
 
     """adding var1 - bomb_planted"""
     if "bomb" in snap["round"].keys():
