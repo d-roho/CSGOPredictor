@@ -34,10 +34,17 @@ Known Bugs/Problems that haven't been solved:
 
 -> (Fix in another Project | Low Priority) 175 vs 115 seconds- The Predictive Model was trained on a dataset where the time_left ranged (0-175). Actually, range should be (0,115). Former's range may include freezetime etc. This may lead to the model being less than ideal due to it's faulty usage of time_left in making predictions. Not code-breaking, but good to fix.
 
+-> (Fix | Low Priority) Miscellaneous minor bugs - A:- All Ts dead and bomb will be defused in time. Prediction should default to win for CT. Probable fix - adding 'bomb' to GSI config to get necessary data for this fix or something similar. 
+
 
 Ideas:
+
 -> Update Predictors instead of recollecting every time (CSGO GSI may have the functionality, check how they did it)
+
 -> Bypass creation of dictionary (CSGO GSI may already do this for us)
+
 -> Java GSI - there seem to be many java programs to interact with CSGO GSI. THey may be more efficient in this usecase.
+
 -> HTTP Security (make more robust for deployment)
+
 -> Make program Team Size agnostic (currently requires 10 players in server to function). Would improve compatibility, just need to replace hardcoding.
