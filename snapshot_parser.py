@@ -1,7 +1,18 @@
 import json
 import time
+import exceptions
 """Creates a Dicitonary of required datapoints from the formatted snapshot
 """
+def exception_handler(snapshot):
+    #Checks to see if snapshot is valid
+    if snapshot.get("allplayers") is None: #Raises exception if user is not spectating a match
+        raise exceptions.MatchNotStarted
+    if  snapshot.get("map").get("phase") == 'warmup': #Raises exception is match is in Warm up Phase
+        raise exceptions.WarmUp
+    if len(snapshot["allplayers"].keys()) == 0: #Raises exception if server is empty, makes program wait until at least one player joins server 
+        raise exceptions.EmptyServer
+    return snapshot
+
 
 def snapshot_formatter(ssoriginal):
     #Converts Player names to Generic names to enable dictionary access using said generic names
