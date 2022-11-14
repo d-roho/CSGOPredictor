@@ -2,13 +2,13 @@
 
 Current Bugs/Tasks
 
--> Better GSI integration
-
--> Lighter Program - reducing the amount of space taken by GSI Log
+-> Optimize gsi functionality (alternative to opening/closing server for each ping, increase in speed, elimination of lag spikes)
 
 -> Better Pause and Play functionality (use keystroke detector, not KeyboardInterrupt)
 
 -> Add args to disable certain features (pause/play, gui...)
+
+-> Modify speed of predictions (optimal predictions per second, only return prediction when major change in values, truncate values)
 
 -> Commit to CSGO-GSI (at end)
 
@@ -23,6 +23,10 @@ Corrected Bugs:
 -> Json.Loads/index Error (patched by restarting loop on IndexError occurance, but occurance of IndexError is not solved)
 
 -> UnicodeDecodeError, probably for certain usernames (solved by specifying encoding="utf-8" wherever files are read in main script and GSI)
+
+-> Better GSI integration - Created gsi_pinger
+
+-> Lighter Program (reducing the amount of space taken by GSI Log) - No more logs with gsi_pinger
 
 Known Bugs/Problems that haven't been solved:
 
