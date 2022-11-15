@@ -2,7 +2,6 @@
 """
 @author: d-roho
 """
-
 def change_dir():
     #Changes working directory to match location of this python file
     import os
@@ -128,16 +127,16 @@ def parse_and_predict():
 
             if snapshot_formatted["round"]["phase"] == "over":
                 if snapshot_formatted["round"].get("win_team") == "T":
-                    pred = [[0,1]]
+                    pred = [0,1]
                 if snapshot_formatted["round"].get("win_team") == "CT":
-                    pred = [[1,0]]
+                    pred = [1,0]
 
             #Virtual Round Win - Scenarios in which a team cannot lose, but the round is still live
 
             #Bomb Timer < 5 seconds
             if snapshot_formatted["phase_countdowns"].get("phase") == "bomb":
                 if float(snapshot_formatted["phase_countdowns"].get("phase_ends_in")) < 5.0:
-                    pred = [[0,1]]
+                    pred = [0,1]
             #Time to Defuse > Time left in Round - cant do this with existing info, solution may be possible (more info from GSI?)
             #Bomb Planted - All Ts dead - enough time to defuse - same as above
 
@@ -146,11 +145,14 @@ def parse_and_predict():
 
             if snapshot_formatted["phase_countdowns"].get("phase") == "freezetime":
                 predictors[4] = 115
-                pred = model.predict([predictors])
+                
        
 
             """ Outputting Prediction
             """
+
+            pred_nested = model.predict([predictors]) #returns list of list with 1 entry, a nested list with the predictions
+            pred = pred_nested[0] #converts list from nested to unnested
 
             print(pred)
             with open('predictions.txt', 'a') as fh:
