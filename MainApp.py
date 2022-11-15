@@ -4,7 +4,7 @@
 """
 
 def change_dir():
-    #Changes working directory to match location of this python file
+    '''Changes working directory to match location of this python file, makes rest of file handling simpler'''
     import os
     import sys
     import time
@@ -16,7 +16,7 @@ def change_dir():
     return dir_path
         
 def import_model():
-    #Imports trained Logistic Regression model 
+    '''Imports trained Logistic Regression model'''
     from pypmml import Model
 
     #Importing Model
@@ -44,7 +44,7 @@ def check_for_match_start():
     print("Match has Begun!")
 
 def match_start_check_postlaunch():
-    #Same as check_for_match_start(), but used in cases where CS:GO is known to have already been launched
+    '''Same as check_for_match_start(), but used in cases where CS:GO is known to have already been launched'''
     from gsi_pinger import pingerfunc
     import time
 
@@ -75,7 +75,7 @@ def match_start_check_postlaunch():
 
 
 def parse_and_predict():
-    #The main loop that parses logs and runs the predictive model. Returns probability prediction of round outcome
+    '''The main loop that parses logs and runs the predictive model. Prints probability prediction of round outcome'''
     dir_path   = change_dir()
     model      = import_model()
     check_for_match_start()
