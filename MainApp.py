@@ -9,7 +9,7 @@ def change_dir():
     import sys
     import time
     
-    #changing working directory
+    # Changing working directory
     dir_path = os.path.dirname(os.path.realpath(__file__))
     os.chdir(str(dir_path))
     print("current directory is - " + str(dir_path))
@@ -28,7 +28,7 @@ def import_model():
 def check_for_match_start():
     import time
     from gsi_pinger import pingerfunc
-    #Pauses script till useful data is being recorded to generate predictions
+    # Pauses script till useful data is being recorded to generate predictions
     test = {}
     print("Waiting for CS:GO to be launched")
     while len(test.keys()) == 0:
@@ -89,12 +89,12 @@ def parse_and_predict():
     
     while True:   
         try:
-            #Checking is a Pause request was initiated in previous loop 
+            # Checking is a Pause request was initiated in previous loop 
             from listener import raise_pause_screen
             if raise_pause_screen == True:
                 pause_screen()
 
-            #Pinging for latest snapshot
+            # Pinging for latest snapshot
             snapshot = None
             from gsi_pinger import pingerfunc
             while snapshot is None:
@@ -124,7 +124,7 @@ def parse_and_predict():
             which the predictive model is not able to take into account when making its prediction
             """
 
-            #Round Over
+            # Round Over
 
             if snapshot_formatted["round"]["phase"] == "over":
                 if snapshot_formatted["round"].get("win_team") == "T":
@@ -132,14 +132,14 @@ def parse_and_predict():
                 if snapshot_formatted["round"].get("win_team") == "CT":
                     pred = [[1,0]]
 
-            #Virtual Round Win - Scenarios in which a team cannot lose, but the round is still live
+            # Virtual Round Win - Scenarios in which a team cannot lose, but the round is still live
 
-            #Bomb Timer < 5 seconds
+            # Bomb Timer < 5 seconds
             if snapshot_formatted["phase_countdowns"].get("phase") == "bomb":
                 if float(snapshot_formatted["phase_countdowns"].get("phase_ends_in")) < 5.0:
                     pred = [[0,1]]
-            #Time to Defuse > Time left in Round - cant do this with existing info, solution may be possible (more info from GSI?)
-            #Bomb Planted - All Ts dead - enough time to defuse - same as above
+            # Time to Defuse > Time left in Round - cant do this with existing info, solution may be possible (more info from GSI?)
+            # Bomb Planted - All Ts dead - enough time to defuse - same as above
 
             """Freeze Time - Making Time prediction attribute default to 115 seconds during freezetime. 
             This makes it so that the low time_left during freezetime doesn't skew prediction towards Ts"""
@@ -168,7 +168,7 @@ def parse_and_predict():
             this fix results in no major loss of functionality (predictions resume after 1-2 seconds). 
             """ 
         except exceptions.EmptyServer:
-            #Manually Raised when no players are found in the server. Forces program to wait till at least one player is detected 
+            # Manually Raised when no players are found in the server. Forces program to wait till at least one player is detected 
             print("Server is empty. Program will automatically resume once at least one player joins the server.")
             time.sleep(1)
             print("Waiting...")
@@ -189,11 +189,11 @@ def parse_and_predict():
             print("Match is in Warm Up Phase. Predictions will begin after Warm Up.")
             time.sleep(1)
             print("Waiting...")
-            check_for_match_start() #For unkown reason, match_start_check_postlaunch() doesnt work here
+            check_for_match_start() # For unkown reason, match_start_check_postlaunch() doesnt work here
             time.sleep(1)
             continue
         except KeyError:
-            #Should not occur. Please report on GitHub if found.
+            # Should not occur. Please report on GitHub if found.
             print("KeyError. Restarting loop.")
             print("This should not occur. Please raise a Ticket on GitHub!")
             time.sleep(5)
