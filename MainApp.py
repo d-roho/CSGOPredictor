@@ -2,12 +2,14 @@
 """
 @author: d-roho
 """
+import time
+from gsi_pinger import pingerfunc
+import sys
+
 
 def change_dir():
     '''Changes working directory to match location of this python file, makes rest of file handling simpler'''
     import os
-    import sys
-    import time
     
     # Changing working directory
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -19,15 +21,12 @@ def import_model():
     '''Imports trained Logistic Regression model'''
     from pypmml import Model
 
-    #Importing Model
     model = Model.load("CSGOPredictor.pmml")
     print("model imported successfully")
     return model
 
 
 def check_for_match_start():
-    import time
-    from gsi_pinger import pingerfunc
     # Pauses script till useful data is being recorded to generate predictions
     test = {}
     print("Waiting for CS:GO to be launched")
@@ -45,8 +44,6 @@ def check_for_match_start():
 
 def match_start_check_postlaunch():
     '''Same as check_for_match_start(), but used in cases where CS:GO is known to have already been launched'''
-    from gsi_pinger import pingerfunc
-    import time
 
     test = {}
     while True:
@@ -76,15 +73,14 @@ def match_start_check_postlaunch():
 
 def parse_and_predict():
     '''The main loop that parses logs and runs the predictive model. Prints probability prediction of round outcome'''
+    import exceptions
+    from snapshot_parser import exception_handler, snapshot_formatter, snapshot_arrayfier
+    from listener import pause_detector, pause_screen
+
     dir_path   = change_dir()
     model      = import_model()
     check_for_match_start()
 
-    import time
-    import sys
-    from snapshot_parser import exception_handler, snapshot_formatter, snapshot_arrayfier
-    import exceptions
-    from listener import pause_detector, pause_screen
     pause_counter = 0
     
     while True:   
