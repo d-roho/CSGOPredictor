@@ -6,9 +6,11 @@ Current Bugs/Tasks
 
 -> Add args to disable certain features (guide, pause/play, gui...)
 
--> Optimize gsi functionality (alternative to opening/closing server for each ping, increase in speed, elimination of lag spikes)
-
 -> Modify speed of predictions (optimal predictions per second, only return prediction when major change in values, truncate values)
+
+-> Run Linter
+
+-> Requirements.txt & Quick Start Guide
 
 -> Commit to CSGO-GSI (at end)
 
@@ -47,6 +49,8 @@ Known Bugs/Problems that haven't been solved:
 -> (Fix | Low Priority) Miscellaneous minor bugs - A:- All Ts dead and bomb will be defused in time. Prediction should default to win for CT. Probable fix - adding 'bomb' to GSI config to get necessary data for this fix or something similar. 
 
 Ideas:
+
+-> Optimize gsi functionality (alternative to opening/closing server for each ping, increase in speed, elimination of lag spikes)
 
 -> Update Predictors instead of recollecting every time (CSGO GSI may have the functionality, check how they did it)
 
