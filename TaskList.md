@@ -52,6 +52,8 @@ Known Bugs/Problems that haven't been solved:
 
 -> (Fix | Low Priority) Miscellaneous minor bugs - A:- All Ts dead and bomb will be defused in time. Prediction should default to win for CT. Probable fix - adding 'bomb' to GSI config to get necessary data for this fix or something similar. 
 
+-> Missing Defuse Kit data - Data on defuse kits held by CT is not transmitted by GSI. Solution unknown
+
 Ideas:
 
 -> Optimize gsi functionality (alternative to opening/closing server for each ping, increase in speed, elimination of lag spikes)
