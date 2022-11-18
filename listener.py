@@ -36,11 +36,11 @@ def pause_screen():
 Executed when pause request detected by pause_detector"""
     global raise_pause_screen
     raise_pause_screen = False
-    print("Predictions Paused - Hit Enter to resume or type 'quit' to exit program: ")
+    print("Predictions Paused - Hit Enter to resume or enter 'q' to exit program: ")
     while True:
         try:
             response = input()
-            if response == 'quit':
+            if response == 'q':
                 print("quitting...")
                 time.sleep(0.5)
                 sys.exit()
