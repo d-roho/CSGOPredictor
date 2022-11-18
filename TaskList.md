@@ -2,21 +2,18 @@
 
 Current Bugs/Tasks
 
--> Basic GUI - tkinter and PySimpleGUI
-
 -> Better Pause and Play functionality - add currentwindow detector
-
--> Add args to disable certain features (guide, pause/play, gui...)
 
 -> Modify speed of predictions (optimal predictions per second, only return prediction when major change in values, truncate values)
 
--> Comments and Documentation
+-> Add args to disable certain features (guide, pause/play, gui, speed of predictions...)
 
--> Run Linter
+-> Comments and Documentation
 
 -> Requirements.txt & Quick Start Guide
 
 -> Commit to CSGO-GSI (at end)
+_________________________________________________________
 
 Corrected Bugs/Problems:
 
@@ -42,7 +39,12 @@ Corrected Bugs/Problems:
 
 -> Exceptions Handling - solved using custom exceptions imported from exceptions.py
 
-- automatic pause-play (during times when a live match is not being spectated) handled using exceptions; Manual pause-play by holding down Esc Key introduced by listener.py module (using Pynput package).
+-> automatic pause-play (during times when a live match is not being spectated) handled using exceptions; Manual pause-play by holding down Esc Key introduced by listener.py module (using Pynput package). 
+
+-> Basic GUI - created gui.py
+
+-> Run Linter
+_________________________________________________________
 
 Known Bugs/Problems that haven't been solved:
 
@@ -53,6 +55,7 @@ Known Bugs/Problems that haven't been solved:
 -> (Fix | Low Priority) Miscellaneous minor bugs - A:- All Ts dead and bomb will be defused in time. Prediction should default to win for CT. Probable fix - adding 'bomb' to GSI config to get necessary data for this fix or something similar. 
 
 -> Missing Defuse Kit data - Data on defuse kits held by CT is not transmitted by GSI. Solution unknown
+_________________________________________________________
 
 Ideas:
 
