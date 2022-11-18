@@ -1,35 +1,39 @@
-#Module that enables Pause-and-Play functionality. Hold Esc Key to Pause! 
+"""Module that enables Pause-and-Play functionality. Hold Esc Key to Pause!"""
 
 from pynput.keyboard import Key, Listener
 from threading import Timer
 import time
 import sys
-import exceptions
 
-#This variable is imported & used in MainApp's parse_and_predict() loop to detect if a Pause request was initiated 
+"""This variable is imported & used in MainApp's parse_and_predict() loop
+to detect if a Pause request was initiated"""
 global raise_pause_screen
 raise_pause_screen = False
 
-#Defines the action to be done when Esc Key is held down
+
 def on_press(key):
+
+    # Defines the action to be done when Esc Key is held down
     if key == Key.esc:
-    # Raise pause_screen()
         global raise_pause_screen
         print("pausing...")
         raise_pause_screen = True
-        print(raise_pause_screen)
-        #raise exceptions.PauseScreen
 
-# Runs the Listener, which looks out for Esc Key press. When Esc detected, runs on_press()
+
 def pause_detector():
+
+    """Runs the Listener, which looks out for Esc Key press.
+    When Esc detected, runs on_press()"""
     with Listener(
             on_press=on_press) as l:
         Timer(0.01, l.stop).start()
         l.join()
 
 
-#Temporarily pauses program, allowing users to either resume or exit altogether. Executed when pause request detected by pause_detector            
 def pause_screen():
+
+    """Temporarily pauses program, allowing users to either resume or exit altogether.
+Executed when pause request detected by pause_detector"""
     global raise_pause_screen
     raise_pause_screen = False
     print("Predictions Paused - Hit Enter to resume or type 'quit' to exit program: ")
