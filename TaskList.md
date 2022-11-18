@@ -2,9 +2,8 @@
 
 Current Bugs/Tasks
 
--> Modify speed of predictions (optimal predictions per second, only return prediction when major change in values, truncate values)
-
--> Add args to disable certain features (guide, pause/play, gui, speed of predictions...)
+-
+-> Add args to disable certain features (guide, pause/play, gui)
 
 -> Comments and Documentation
 
@@ -42,6 +41,10 @@ Corrected Bugs/Problems:
 -> Basic GUI - created gui.py
 
 -> Run Linter
+
+-> Add Arguments - added -p, delay X args
+
+-> Modify speed of predictions - added delay argument
 _________________________________________________________
 
 Known Bugs/Problems that haven't been solved:
@@ -53,6 +56,8 @@ Known Bugs/Problems that haven't been solved:
 -> (Fix | Low Priority) Miscellaneous minor bugs - A:- All Ts dead and bomb will be defused in time. Prediction should default to win for CT. Probable fix - adding 'bomb' to GSI config to get necessary data for this fix or something similar. 
 
 -> Missing Defuse Kit data - Data on defuse kits held by CT is not transmitted by GSI. Solution unknown
+
+-> (Fix | High Priotity) Exception Handling for Arguments
 _________________________________________________________
 
 Ideas:
