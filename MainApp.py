@@ -6,6 +6,14 @@
 import sys
 import time
 from gsi_pinger import pingerfunc
+from win32gui import GetWindowText, GetForegroundWindow
+
+
+def current_window():
+
+    # Returns name of current window for listener.py
+    window = GetWindowText(GetForegroundWindow())
+    return window
 
 
 def change_dir():
@@ -84,6 +92,7 @@ def parse_and_predict():
 
     """The main loop that parses logs and runs the predictive model.
      Returns probability prediction of round outcome"""
+    window = current_window()
     change_dir()
     model = import_model()
     check_for_match_start()
@@ -155,9 +164,9 @@ def parse_and_predict():
                 fh.write(str(pred)+'\n')
 
             # Check for Pause request (every 10 loops)
-
-            if pause_counter % 10 == 0:
-                pause_detector()
+            if GetWindowText(GetForegroundWindow()) == window:
+                if pause_counter % 10 == 0:
+                    pause_detector()
             pause_counter += 1
 
             # Exceptions
