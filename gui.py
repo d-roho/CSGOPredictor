@@ -1,12 +1,12 @@
-import os
-import sys
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import matplotlib as mpl
-import time
-from file_read_backwards import FileReadBackwards
 
 def gui_main_loop():
+	import os
+	import sys
+	import time
+	from file_read_backwards import FileReadBackwards
+	import matplotlib.pyplot as plt
+	import matplotlib.animation as animation
+	import matplotlib as mpl
 
 	mpl.rcParams['toolbar'] = 'None'
 	fig = plt.figure()

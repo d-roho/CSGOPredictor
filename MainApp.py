@@ -2,12 +2,15 @@
 """
 @author: d-roho
 """
+
+import sys
+import time
+from gsi_pinger import pingerfunc
+
 def change_dir():
+  
     #Changes working directory to match location of this python file
-    import os
-    import sys
-    import time
-    
+    import os  
     #changing working directory
     dir_path = os.path.dirname(os.path.realpath(__file__))
     os.chdir(str(dir_path))
@@ -15,6 +18,7 @@ def change_dir():
     return dir_path
         
 def import_model():
+   
     #Imports trained Logistic Regression model 
     from pypmml import Model
 
@@ -25,9 +29,9 @@ def import_model():
 
 
 def check_for_match_start():
-    import time
-    from gsi_pinger import pingerfunc
+
     #Pauses script till useful data is being recorded to generate predictions
+
     test = {}
     print("Waiting for CS:GO to be launched")
     while len(test.keys()) == 0:
@@ -43,10 +47,8 @@ def check_for_match_start():
     print("Match has Begun!")
 
 def match_start_check_postlaunch():
+    
     #Same as check_for_match_start(), but used in cases where CS:GO is known to have already been launched
-    from gsi_pinger import pingerfunc
-    import time
-
     test = {}
     while True:
         try:
@@ -79,23 +81,20 @@ def parse_and_predict():
     model      = import_model()
     check_for_match_start()
 
-    import time
-    import sys
     from snapshot_parser import exception_handler, snapshot_formatter, snapshot_arrayfier
     import exceptions
-    from listener import pause_detector, pause_screen
+    from listener import pause_detector, pause_screen, raise_pause_screen
     pause_counter = 0
     
     while True:   
         try:
+
             #Checking is a Pause request was initiated in previous loop 
-            from listener import raise_pause_screen
             if raise_pause_screen == True:
                 pause_screen()
 
             #Pinging for latest snapshot
             snapshot = None
-            from gsi_pinger import pingerfunc
             while snapshot is None:
                 snapshot = pingerfunc()
 
