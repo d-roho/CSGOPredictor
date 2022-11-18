@@ -2,8 +2,6 @@
 
 Current Bugs/Tasks
 
--> Better Pause and Play functionality - add currentwindow detector
-
 -> Modify speed of predictions (optimal predictions per second, only return prediction when major change in values, truncate values)
 
 -> Add args to disable certain features (guide, pause/play, gui, speed of predictions...)
@@ -39,7 +37,7 @@ Corrected Bugs/Problems:
 
 -> Exceptions Handling - solved using custom exceptions imported from exceptions.py
 
--> automatic pause-play (during times when a live match is not being spectated) handled using exceptions; Manual pause-play by holding down Esc Key introduced by listener.py module (using Pynput package). 
+-> automatic pause-play (during times when a live match is not being spectated) handled using exceptions; Manual pause-play by holding down Esc Key introduced by listener.py module (using Pynput package). Only enabled when the terminal running program is in foreground.
 
 -> Basic GUI - created gui.py
 
