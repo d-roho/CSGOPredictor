@@ -101,14 +101,21 @@ def parse_and_predict():
     import exceptions
     from listener import pause_detector, pause_screen
     pause_counter = 0
+    delay_req = False
+    if "delay" in sys.argv:
+        delay_req = True
+        delay_index = sys.argv.index("delay") + 1
+        delay_value = float(sys.argv[delay_index])
 
     while True:
         try:
-
+            if delay_req is True:
+                time.sleep(delay_value)
             # Checking is a Pause request was initiated in previous loop
-            from listener import raise_pause_screen  # imports latest value
-            if raise_pause_screen is True:  # Checks if pause was requested
-                pause_screen()
+            if "-p" not in sys.argv:
+                from listener import raise_pause_screen  # imports latest value
+                if raise_pause_screen is True:  # Checks if pause was requested
+                    pause_screen()
 
             # Pinging for latest snapshot
             snapshot = None
@@ -163,11 +170,14 @@ def parse_and_predict():
             with open('predictions.txt', 'a') as fh:  # writes predictions to txt file
                 fh.write(str(pred)+'\n')
 
-            # Check for Pause request (every 10 loops)
-            if GetWindowText(GetForegroundWindow()) == window:
-                if pause_counter % 10 == 0:
-                    pause_detector()
-            pause_counter += 1
+            # Check for Pause request (every 10 loops unless delay is specified)
+            if "-p" not in sys.argv:
+                if GetWindowText(GetForegroundWindow()) == window:
+                    if delay_req is True:
+                        pause_detector()
+                    elif pause_counter % 10 == 0:
+                        pause_detector()
+                pause_counter += 1
 
             # Exceptions
         except exceptions.EmptyServer:
