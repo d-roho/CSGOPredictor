@@ -1,7 +1,7 @@
 # CSGOPredictor
 
 Current Bugs/Tasks
-
+-> Solve P&P i/O valueerror
 -> Publish Git Repo 
 
 -> Commit to CSGO-GSI (at end)
