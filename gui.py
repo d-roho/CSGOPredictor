@@ -34,8 +34,8 @@ def gui_main_loop():
                     break
         pred = pred[1:-2]
         pred = pred.split(",", 1)
-        pred[0] = float(float(pred[0])*100)
-        pred[1] = float(float(pred[1][1:])*100)
+        pred[0] = float(float(pred[0]))
+        pred[1] = float(float(pred[1][1:]))
         CT[0] = pred[0]
         T[0] = pred[1]
         X = "Preds"
