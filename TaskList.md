@@ -1,7 +1,10 @@
 # CSGOPredictor
 
 Current Bugs/Tasks
+-> Modify gui.py to work with sklearn_json model
+
 -> Solve P&P i/O valueerror
+
 -> Publish Git Repo 
 
 -> Commit to CSGO-GSI (at end)
