@@ -3,10 +3,11 @@
 # Quick Start Guide
 
 1. Install compatible versions of Python and Java mentioned in Requirements section below
-2. run `pip install requirements.txt` to install required packages
-3. copy `gamestate_integration_CSGOPredictor.cfg` file to `Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg`
-
-4. run `python MainApp.py` plus any arguments of your choice in command terminal or equivalent from location of this repo
+   * Install `wheel` package - `pip install wheel` if not installed
+3. Clone repo
+4. run `pip install -r requirements.txt` in repo directory to install required packages
+5. copy `gamestate_integration_CSGOPredictor.cfg` file to `Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg`
+6. run `python MainApp.py` plus any arguments of your choice in command terminal or equivalent from location of this repo
 
 _Optional - run `gui.py` in another terminal while `MainApp.py` is running to display dynamic prediction bar_
 
@@ -14,10 +15,12 @@ _Optional - run `gui.py` in another terminal while `MainApp.py` is running to di
 
 ## Requirements
 * Python >= 3.5
-* Java >= 8 and < 16
-* all packages in `requirements.txt`
+* Java >= 8
+* `wheel` package + all packages in `requirements.txt` (install wheel before requirements.txt)
 
 ## Command Line Arguements
+
+***Add these while running `MainApp.py` to enable/disable features***
 
 * -w = disable Welcome Message
 * -p = disable Pause-and-Play functionality
