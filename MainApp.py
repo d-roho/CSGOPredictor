@@ -164,6 +164,8 @@ def parse_and_predict():
             # Running model with predictors
             pred_nested = model.predict([predictors])
             pred = pred_nested[0]  # converts list from nested to unnested
+            for i in range(2):  # decimal -> %, and round values
+                pred[i] = round(pred[i]*100, 2)
 
             """Default Predictions - These are scenarios in which the winner of
             the round has been decided (or is a virtual certainty) which the
@@ -172,9 +174,9 @@ def parse_and_predict():
             # Round Over
             if snapshot_formatted["round"]["phase"] == "over":
                 if snapshot_formatted["round"].get("win_team") == "T":
-                    pred = [0, 1]
+                    pred = [float(0), float(1)]
                 if snapshot_formatted["round"].get("win_team") == "CT":
-                    pred = [1, 0]
+                    pred = [float(1), float(0)]
 
             """Virtual Round Win - Scenarios in which a team cannot lose,
             but the round is still live"""
@@ -182,7 +184,7 @@ def parse_and_predict():
             # Bomb Timer < 5 seconds
             if snapshot_formatted["phase_countdowns"].get("phase") == "bomb":
                 if float(snapshot_formatted["phase_countdowns"].get("phase_ends_in")) < 5.0:
-                    pred = [0, 1]
+                    pred = [float(0), float(1)]
 
             """Time to Defuse > Time left in Round - cant do this with
             existing info, solution may be possible (more info from GSI?)"""
