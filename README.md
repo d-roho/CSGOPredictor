@@ -1,4 +1,4 @@
-(Add GIF)
+![](https://github.com/d-roho/CSGOPredictor/blob/main/READMEDocs/Intro.gif)
 
 # Quick Start Guide
 
@@ -28,7 +28,7 @@ _Optional - run `gui.py` in another terminal while `MainApp.py` is running to di
 ### ***CSGOPredictor is a python program that generates live round winner predictions of CS:GO Competitive matches.***
 
 ## How it works
-(diagram)
+![Workflow](https://github.com/d-roho/CSGOPredictor/blob/main/READMEDocs/workflow.png)
 A simple 3 step process
 
 * When a match is live, *snapshots* of the the round in play, containing large amounts of precise data on round & players' status, are generated & captured using the `gsi_pinger` module through CS:GO's in-built Game State Integration functionality.
@@ -49,20 +49,22 @@ The Predictive Model used in this program is
  * The dataset is a pre-processed version of the dataset released by [SkyBox.gg](skybox.gg) as a part of their [AI hackathon](https://skybox.gg/blog/csgo-predictions-showcased-at-blast-premier).
 * The model was trained on all 122k+ snapshots, with 90+ attributes used out of the 97 present in the dataset. Some of the attributes were combined to create 23 final attributes which the model uses to make predictions.
 
-Confusion Matrix: 
+### Calibration Plot:
+_A calibration plot is a line-and-scatter plot which compares the observed probabilities of an event
+versus the predicted probabilities. A well calibrated predictor is one where results that are
+predicted with an X% probability do indeed occur X% of the time._
 
-| Left-aligned | Center-aligned | Right-aligned |
-| :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+*As the primary function of this program is to generate accurate probabilities, callibration is the key metric for success (not accuracy)* 
+
+To be added
+
+### Accuracy:
+
+![Confusion Matrix](https://github.com/d-roho/CSGOPredictor/blob/main/READMEDocs/ConfusionMatrix.png)
 
 
-(accuracy charts)
 
-
-
-#Acknowledgements:
+# Acknowledgements:
 
 1. Chris and Skybox for data
 2. MD for GSI Code
-3. 
