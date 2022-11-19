@@ -49,16 +49,13 @@ def change_dir():
 def import_model():
 
     """Imports trained Logistic Regression model"""
-    from pypmml import Model
+    import sklearn_json as skljson
 
     #  Importing Model
-    try:
-        print("Importing Model...")
-        model = Model.load("CSGOPredictor.pmml")
-        print("Model Imported Successfully!")
-        return model
-    except Exception:
-        print("Model failed to import.")
+    print("Importing Model...")
+    model = skljson.from_json("CSGOPredictor")
+    print("Model Imported Successfully!")
+    return model
 
 
 def check_for_match_start():
@@ -162,7 +159,7 @@ def parse_and_predict():
                 predictors[4] = 115
 
             # Running model with predictors
-            pred_nested = model.predict([predictors])
+            pred_nested = model.predict_proba([predictors])
             pred = pred_nested[0]  # converts list from nested to unnested
             for i in range(2):  # decimal -> %, and round values
                 pred[i] = round(pred[i]*100, 2)
