@@ -2,7 +2,7 @@
 """
 @author: d-roho
 """
-
+import pywintypes
 import sys
 import time
 from gsi_pinger import pingerfunc
