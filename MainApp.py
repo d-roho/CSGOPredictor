@@ -16,6 +16,24 @@ def current_window():
     return window
 
 
+def welcome_message():
+
+    # Display Welcome Message unless disabled by "-w" arg
+    if "-w" not in sys.argv:
+        f = open('welcome.txt', 'r')
+        print(''.join([line for line in f]))
+        print("CSGOPredictor Launched Successfully!")
+        if "-p" in sys.argv:
+            print("PAUSE-AND-PLAY = DISABLED")
+        else: print("PAUSE-AND-PLAY = ENABLED")
+        if "delay" in sys.argv:
+            delay_index = sys.argv.index("delay") + 1
+            delay_value = float(sys.argv[delay_index])
+            print("DELAY VALUE = " + str(delay_value) + " seconds")
+        else: print("DELAY VALUE = 0 seconds")
+        time.sleep(1.5)
+
+
 def change_dir():
 
     """Changes working directory to match location of this python file"""
@@ -24,7 +42,7 @@ def change_dir():
     #  Changing working directory
     dir_path = os.path.dirname(os.path.realpath(__file__))
     os.chdir(str(dir_path))
-    print("current directory is - " + str(dir_path))
+    print("current working directory is - " + str(dir_path))
     return dir_path
 
 
@@ -34,9 +52,13 @@ def import_model():
     from pypmml import Model
 
     #  Importing Model
-    model = Model.load("CSGOPredictor.pmml")
-    print("model imported successfully")
-    return model
+    try:
+        print("Importing Model...")
+        model = Model.load("CSGOPredictor.pmml")
+        print("Model Imported Successfully!")
+        return model
+    except Exception:
+        print("Model failed to import.")
 
 
 def check_for_match_start():
@@ -44,11 +66,11 @@ def check_for_match_start():
     """Pauses script till useful data is being recorded'
      to generate predictions"""
     test = {}
-    print("Waiting for CS:GO to be launched")
+    print("Waiting for CS:GO to be launched...")
     while len(test.keys()) == 0:
         test = pingerfunc()
-    print("CS:GO has been launched")
-    print("Waiting for Match to begin")
+    print("CS:GO has been launched!")
+    print("Waiting for Match to begin...")
 
     while test.get("allplayers") is None:
         test = pingerfunc()
@@ -93,6 +115,7 @@ def parse_and_predict():
     """The main loop that parses logs and runs the predictive model.
      Returns probability prediction of round outcome"""
     window = current_window()
+    welcome_message()
     change_dir()
     model = import_model()
     check_for_match_start()
@@ -173,7 +196,7 @@ def parse_and_predict():
             # Check for Pause request (every 10 loops unless delay is specified)
             if "-p" not in sys.argv:
                 if GetWindowText(GetForegroundWindow()) == window:
-                    if delay_req is True:
+                    if delay_req is True:  # when delay, check for pause after each loop
                         pause_detector()
                     elif pause_counter % 10 == 0:
                         pause_detector()
@@ -229,7 +252,10 @@ def parse_and_predict():
             Without this, program raises several errors."""
             print("Exiting Program")
             time.sleep(0.5)
-            sys.exit()
+            try:
+                sys.exit()
+            except:
+                sys.exit()
 
     print("While loop in parse_and_predict somehow broken. This should not occur, please report on GitHub")
     time.sleep(5)
