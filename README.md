@@ -43,6 +43,20 @@ A simple 3 step process
 
 ## Metrics
 
+The Predictive Model used in this program is
+* a Logistic Regression model
+* trained on this [dataset](https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification), which contains 122,411 snapshots of from high level tournament play in 2019 and 2020.
+ * The dataset is a pre-processed version of the dataset released by [SkyBox.gg](skybox.gg) as a part of their [AI hackathon](https://skybox.gg/blog/csgo-predictions-showcased-at-blast-premier).
+* The model was trained on all 122k+ snapshots, with 90+ attributes used out of the 97 present in the dataset. Some of the attributes were combined to create 23 final attributes which the model uses to make predictions.
+
+Confusion Matrix: 
+
+| Left-aligned | Center-aligned | Right-aligned |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
+
+
 (accuracy charts)
 
 
