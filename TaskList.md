@@ -2,12 +2,7 @@
 
 Current Bugs/Tasks
 
--
--> Add args to disable certain features (guide, pause/play, gui)
-
--> Comments and Documentation
-
--> Requirements.txt & Quick Start Guide
+-> Publish Git Repo 
 
 -> Commit to CSGO-GSI (at end)
 _________________________________________________________
@@ -42,7 +37,7 @@ Corrected Bugs/Problems:
 
 -> Run Linter
 
--> Add Arguments - added -p, delay X args
+-> Add Arguments - added -p, delay X, -w args
 
 -> Modify speed of predictions - added delay argument
 _________________________________________________________
