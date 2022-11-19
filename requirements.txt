@@ -1,5 +1,5 @@
 pywin32
-pypmml
+sklearn_json
 pynput
 file_read_backwards
 matplotlib
