@@ -32,10 +32,10 @@ def gui_main_loop():
                     iterator += 1
                 else:
                     break
-        pred = pred[1:-2]
-        pred = pred.split(",", 1)
-        pred[0] = float(float(pred[0]))
-        pred[1] = float(float(pred[1][1:]))
+        pred = pred[1:-1]
+        pred = pred.split(" ", 1)
+        pred[0] = float(pred[0])
+        pred[1] = float(pred[1])
         CT[0] = pred[0]
         T[0] = pred[1]
         X = "Preds"
