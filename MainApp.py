@@ -171,9 +171,9 @@ def parse_and_predict():
             # Round Over
             if snapshot_formatted["round"]["phase"] == "over":
                 if snapshot_formatted["round"].get("win_team") == "T":
-                    pred = [float(0), float(100)]
+                    pred = "[0 100]"
                 if snapshot_formatted["round"].get("win_team") == "CT":
-                    pred = [float(100), float(0)]
+                    pred = "[100 0]"
 
             """Virtual Round Win - Scenarios in which a team cannot lose,
             but the round is still live"""
@@ -181,7 +181,7 @@ def parse_and_predict():
             # Bomb Timer < 5 seconds
             if snapshot_formatted["phase_countdowns"].get("phase") == "bomb":
                 if float(snapshot_formatted["phase_countdowns"].get("phase_ends_in")) < 5.0:
-                    pred = [float(0), float(100)]
+                    pred = "[0 100]"
 
             """Time to Defuse > Time left in Round - cant do this with
             existing info, solution may be possible (more info from GSI?)"""
