@@ -17,9 +17,22 @@ _Optional - run `gui.py` in another terminal while `MainApp.py` is running to di
 * Python 3 (preferably latest version)
 * `wheel` python package + all packages in `requirements.txt` (install wheel before requirements.txt)
 
-## Command Line Arguements
+## Features
 
-***Add these while running `MainApp.py` to enable/disable features***
+### Prediction
+
+The program print the live round prediction in the terminal. Prediction format is `[CT Win%, T Win%]`
+  * The program also writes each prediction to `predictions.txt` in repo directory.
+
+### Pause-and-Play
+
+***Hold `Esc` key while terminal window is active to pause the program!***
+
+### `gui.py`
+
+Run `gui.py` in another terminal while `MainApp.py` is running to display dynamic prediction bar
+
+### Command Line Arguments
 
 * -w = disable Welcome Message
 * -p = disable Pause-and-Play functionality
