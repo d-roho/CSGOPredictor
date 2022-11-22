@@ -17,28 +17,29 @@
 
 _Optional - run `gui.py` in another terminal while `MainApp.py` is running to display dynamic prediction bar_
 
-**The program will begin making predictions once you begin spectating a match in CS:GO.**
+***The program will begin making predictions once you begin spectating a match in CS:GO.***
 
 ## Requirements
 * Python 3 (preferably latest version)
-* `wheel` python package + all packages in `requirements.txt` (install wheel before requirements.txt)
+* `wheel` python package
+* All packages in `requirements.txt` (install wheel before requirements.txt)
 
 ## Features
 
-### Prediction
+### ★ Prediction
 
 The program print the live round prediction in the terminal. Prediction format is `[CT Win%, T Win%]`
   * The program also writes each prediction to `predictions.txt` in repo directory.
 
-### Pause-and-Play
+### ★ Pause-and-Play
 
 ***Hold `Esc` key while terminal window is active to pause the program!***
 
-### `gui.py`
+### ★ GUI
 
 Run `gui.py` in another terminal while `MainApp.py` is running to display dynamic prediction bar
 
-### Command Line Arguments
+### ★ Command Line Arguments
 
 * -w = disable Welcome Message
 * -p = disable Pause-and-Play functionality
@@ -50,15 +51,16 @@ Run `gui.py` in another terminal while `MainApp.py` is running to display dynami
 
 ## How it works
 ![Workflow](https://github.com/d-roho/CSGOPredictor/blob/main/READMEDocs/workflow.png)
-A simple 3 step process
 
-* When a match is live, *snapshots* of the the round in play, containing large amounts of precise data on round & players' status, are generated & captured using the `gsi_pinger` module through CS:GO's in-built Game State Integration functionality.
+### A simple 3 step process
 
-* Each snapshot is cleaned and parsed using the `snapshot_parser` module, resulting in the creation of an array of 23 attributes to be used by the predictive model to generate probability predictions. Attributes include:
+1. When a match is live, *snapshots* of the the round in play, containing large amounts of precise data on round & players' status, are generated & captured using the `gsi_pinger` module through CS:GO's in-built Game State Integration functionality.
+
+2. Each snapshot is cleaned and parsed using the `snapshot_parser` module, resulting in the creation of an array of 23 attributes to be used by the predictive model to generate probability predictions. Attributes include:
   * Round Data - `Map`, `Time Left`, `Bomb Plant Status`
   * Player Data - `T/CT Players Alive`, `T/CT Total Health`, `Weapons`, `Utility`
 
-* Finally, `MainApp.py` runs the pre-trained Logistic Regression model to generate probability prediction for round at that particular point in the round.
+3. Finally, `MainApp.py` runs the pre-trained Logistic Regression model to generate probability prediction for round at that particular point in the round.
   * Prediction is in the form of a duo of probabilities - one for CT win % and one for t win %. Example - `[79.2, 20.8]`
   * The prediction is printed in the terminal as well as written to a text file in the parent directory (for use by other applications, such as `gui.py` which displays the predictions as a dynamic bar chart)
 
