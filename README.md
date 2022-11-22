@@ -1,4 +1,10 @@
-![](https://github.com/d-roho/CSGOPredictor/blob/main/READMEDocs/Intro.gif)
+<p align="center">
+<a href="https://github.com/d-roho/CSGOPredictor/blob/main/READMEDocs/Intro.gif">
+<img src="./READMEDocs/Intro.gif"/>
+</a>
+</p>
+
+![]()
 
 # Quick Start Guide
 
@@ -71,7 +77,7 @@ predicted with an X% probability do indeed occur X% of the time._
 
 *As the primary function of this program is to generate accurate probabilities, callibration is the key metric for success (not accuracy)* 
 
-To be added
+![Calibration Plot](https://github.com/d-roho/CSGOPredictor/blob/main/READMEDocs/CalibrationPlot.png)
 
 ### Accuracy:
 
