@@ -81,6 +81,6 @@ To be added
 
 # Acknowledgements:
 
-1. Chris and Skybox for data
-2. MD for GSI Code
-3. mlrequest for sklearn-json
+1. [Christian Lillelund](https://www.kaggle.com/christianlillelund) and [Skybox.gg](https://Skybox.gg) for data used to train the predictive model
+2. [mdhedelund](https://github.com/mdhedelund) for their [CSGO-GSI](https://github.com/mdhedelund/CSGO-GSI) Repo, which was used in this repo's `gsi_pinger` module to interface with CS:GO's GSI
+3. [mlrequest](https://github.com/mlrequest) for their [sklearn-json package](https://github.com/mlrequest/sklearn-json), used to import the predictive model in `MainApp.py`
