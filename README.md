@@ -7,7 +7,7 @@
 ![]()
 
 # Quick Start Guide
-
+## [CLICK ON ME FOR VIDEO GUIDE!](https://www.youtube.com/watch?v=ndZOmqIZvSs)
 1. Install Python 3 (preferably latest version)
    * Install `wheel` package - `pip install wheel` if not installed
 2. Clone repo
