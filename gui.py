@@ -33,7 +33,7 @@ def gui_main_loop():
                 else:
                     break
         pred = pred[1:-1]
-        pred = pred.split(" ", 1)
+        pred = pred.split(", ", 1)
         pred[0] = float(pred[0])
         pred[1] = float(pred[1])
         CT[0] = pred[0]

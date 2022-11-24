@@ -161,6 +161,7 @@ def parse_and_predict():
             # Running model with predictors
             pred_nested = model.predict_proba([predictors])
             pred = pred_nested[0]  # converts list from nested to unnested
+            pred = list(pred)  # converts numpy array to list
             for i in range(2):  # decimal -> %, and round values
                 pred[i] = round(pred[i]*100, 2)
 
