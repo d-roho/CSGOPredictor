@@ -33,7 +33,7 @@ The program print the live round prediction in the terminal. Prediction format i
 
 ### ★ Pause-and-Play
 
-***Hold `Esc` key while terminal window is active to pause the program!***
+***Hold `Esc` key while terminal window is active to pause the program!*** (currently only works when run using Anaconda)
 
 ### ★ GUI
 
