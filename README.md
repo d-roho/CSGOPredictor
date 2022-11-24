@@ -93,3 +93,5 @@ predicted with an X% probability do indeed occur X% of the time._
 1. [Christian Lillelund](https://www.kaggle.com/christianlillelund) and [Skybox.gg](https://Skybox.gg) for data used to train the predictive model
 2. [mdhedelund](https://github.com/mdhedelund) for their [CSGO-GSI](https://github.com/mdhedelund/CSGO-GSI) Repo, which was used in this repo's `gsi_pinger` module to interface with CS:GO's GSI
 3. [mlrequest](https://github.com/mlrequest) for their [sklearn-json package](https://github.com/mlrequest/sklearn-json), used to import the predictive model in `MainApp.py`
+
+**Special Thanks to My Research Guide [Dr. Deepak Joy Mampilly](https://christuniversity.irins.org/profile/98201), and my Business Analytics professors [Dr. Kumar Chandar S](https://christuniversity.irins.org/profile/118264) & [Dr Manu K S](https://christuniversity.irins.org/profile/115783), for their guidance & support.**
