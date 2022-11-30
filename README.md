@@ -24,6 +24,8 @@ _Optional - run `gui.py` in another terminal while `MainApp.py` is running to di
 * `wheel` python package
 * All packages in `requirements.txt` (install wheel before requirements.txt)
 
+***(And Counter-Strike: Global Offensive, of course!)***
+
 ## Features
 
 ### ★ Prediction
