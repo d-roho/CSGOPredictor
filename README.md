@@ -64,7 +64,7 @@ Run `gui.py` in another terminal while `MainApp.py` is running to display dynami
 
 3. Finally, `MainApp.py` runs the pre-trained Logistic Regression model to generate probability prediction for round at that particular point in the round.
   * Prediction is in the form of an ordered duo of probabilities - first for CT win % and second for T win %. 
-    * Example: `[79.2 20.8]`, indicating a `79.2%` win probability for CTs & `20.8%` win probability for Ts 
+    * Example: `[79.21, 20.79]`, indicating a `79.2%` win probability for CTs & `20.8%` win probability for Ts 
   * The prediction is printed in the terminal as well as written to a text file in the parent directory (for use by other applications, such as `gui.py` which displays the predictions as a dynamic bar chart)
 
 ## Metrics
